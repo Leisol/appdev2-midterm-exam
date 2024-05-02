@@ -20,8 +20,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::middleware('validToken')->group(function() {
+    Route::apiResource('products', ProductController::class);
+});
 
-Route::apiResource('prod', ProductController::class);
+// Route::middleware('validToken')->group(function() {
+//     Route::get('/users', function(){
+//         return 'users';
+//     });
+// });
+
 
 
 Route::post('products/upload/local', 'ProductController@uploadLocal')->name('upload.local');

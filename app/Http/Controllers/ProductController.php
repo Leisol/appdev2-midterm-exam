@@ -25,7 +25,7 @@ class ProductController extends Controller
          "id" => 3,
          "name" => "Pants",
          "price" => 600,
-         "description" => "This is a pant",
+         "description" => "These are a pants",
         ],
         [
          "id" => 4,

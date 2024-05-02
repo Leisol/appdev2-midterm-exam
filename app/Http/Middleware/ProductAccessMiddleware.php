@@ -15,18 +15,17 @@ class ProductAccessMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $validToken = config('appdev2midtermexamination');
 
-        // Checking
-        $providedToken = $request->header('Authorization');
-        if (!$providedToken) {
-            return response()->json(['message' => 'Token is missing.'], 401);
+        $token = $request->bearerToken();
+        
+        if(!$token) {
+            return response()->json(["error" => "Token is missing."], 401);
         }
 
-        // Comparing valid token
-        if ($providedToken !== $validToken) {
-            return response()->json(['message' => 'Token is invalid.'], 401);
+        if($token !== env('BEARER_TOKEN')) {
+            return response()->json(["error" => "Token is invalid."], 403);
         }
+
         return $next($request);
     }
 }
